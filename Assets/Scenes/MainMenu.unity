@@ -531,10 +531,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e14a61a650db7149804fad0416f34cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 3
-  threshold: 0.19
+  iterations: 4
+  threshold: 0.1
   softThreshold: 0.543
-  intensity: 1.14
+  intensity: 0.63
   bloomShader: {fileID: 4800000, guid: a742de5e99d9b634bb8700f1ccac7343, type: 3}
   debug: 0
 --- !u!1001 &1034710174
