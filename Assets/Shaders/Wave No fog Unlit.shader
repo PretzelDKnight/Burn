@@ -8,6 +8,7 @@
 		_VerticalDistort("Vertical Distort", float) = 1
 		_HorizontalDistort("Horizontal Distort", float) = 1
 		_ForwardlDistort("Forward Distort", float) = 1
+		_ScrollSpeed("Scroll Speed", float)=1
     }
     SubShader
     {
@@ -22,7 +23,6 @@
         {
 		// Alpha blending
 			Blend SrcAlpha OneMinusSrcAlpha
-			Cull Back
 			ZWrite Off
 
             CGPROGRAM
@@ -44,6 +44,7 @@
                 float2 uv : TEXCOORD0;
                 //UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+				float3 normal : TEXCOORD1;
             };
 
             sampler2D _MainTex;
@@ -53,11 +54,13 @@
 			float _VerticalDistort;
 			float _HorizontalDistort;
 			float _ForwardDistort;
+			float _ScrollSpeed;
 
             v2f vert (appdata v)
             {
                 v2f o;
 				float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+
 				float displacement = sin(worldPos.x + (_WaveSpeed * _Time)) + sin(worldPos.z + (_WaveSpeed * _Time));
 				worldPos.y = worldPos.y + (displacement * _VerticalDistort);
 				worldPos.x = worldPos.x + (displacement * _HorizontalDistort);
@@ -70,15 +73,19 @@
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                // sample the texture
+			fixed4 frag(v2f i) : SV_Target
+			{
+				// sample the texture
+				i.uv.y = i.uv.y - _Time * _ScrollSpeed;
                 fixed4 col = tex2D(_MainTex, i.uv);
 				col *= _Color;
                 // apply fog
                 //UNITY_APPLY_FOG(i.fogCoord, col);
+
                 return col;
             }
+
+			
             ENDCG
         }
     }
