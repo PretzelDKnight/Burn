@@ -25,6 +25,8 @@ public class BloomEffect : MonoBehaviour
     const int ApplyBloomPass = 3;
     const int DebugBloomPass = 4;
 
+    private Camera cam;
+    
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         if (bloom == null)

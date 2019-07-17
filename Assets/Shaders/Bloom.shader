@@ -8,6 +8,8 @@
 
 		sampler2D _MainTex;
 		sampler2D _SourceTex;
+		sampler2D _BloomMask;
+		sampler2D _GlowMap;
 		float4 _MainTex_TexelSize;
 		half4 _Filter;
 		half _Intensity;
@@ -25,7 +27,8 @@
 		};
 
 		// simple sample function
-		half3 Sample(float2 uv) {
+		half3 Sample(float2 uv) 
+		{
 			return tex2D(_MainTex, uv).rgb;
 		}
 
@@ -70,8 +73,9 @@
 				#pragma vertex VertexProgram
 				#pragma fragment FragmentProgram
 
-				half4 FragmentProgram(Interpolators i) : SV_Target {
-					return half4(Prefilter(SampleBox(i.uv, 1)), 1);
+				fixed4 FragmentProgram(Interpolators i) : SV_Target
+				{
+					return fixed4(Prefilter(SampleBox(i.uv, 1)), 1);
 				}
 			ENDCG
 		}
@@ -82,9 +86,9 @@
 				#pragma vertex VertexProgram
 				#pragma fragment FragmentProgram
 
-				half4 FragmentProgram(Interpolators i) : SV_Target 
+				fixed4 FragmentProgram(Interpolators i) : SV_Target
 				{
-					return half4(SampleBox(i.uv, 1), 1);
+					return fixed4(SampleBox(i.uv, 1), 1);
 				}
 			ENDCG
 		}
@@ -97,9 +101,9 @@
 				#pragma vertex VertexProgram
 				#pragma fragment FragmentProgram
 
-				half4 FragmentProgram(Interpolators i) : SV_Target
+				fixed4 FragmentProgram(Interpolators i) : SV_Target
 				{
-					return half4(SampleBox(i.uv, 0.5), 1);
+					return fixed4(SampleBox(i.uv, 0.5), 1);
 				}
 			ENDCG
 		}
@@ -110,9 +114,9 @@
 				#pragma vertex VertexProgram
 				#pragma fragment FragmentProgram
 
-				half4 FragmentProgram(Interpolators i) : SV_Target 
+				fixed4 FragmentProgram(Interpolators i) : SV_Target
 				{
-					half4 c = tex2D(_SourceTex, i.uv);
+					fixed4 c = tex2D(_SourceTex, i.uv);
 					c.rgb += _Intensity * SampleBox(i.uv, 0.5);
 					return c;
 				}
@@ -125,8 +129,9 @@
 				#pragma vertex VertexProgram
 				#pragma fragment FragmentProgram
 
-				half4 FragmentProgram(Interpolators i) : SV_Target {
-					return half4(_Intensity * SampleBox(i.uv, 0.5), 1);
+				fixed4 FragmentProgram(Interpolators i) : SV_Target 
+				{
+					return fixed4(_Intensity * SampleBox(i.uv, 0.5), 1);
 				}
 			ENDCG
 		}
