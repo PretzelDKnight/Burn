@@ -42,7 +42,7 @@ public class AudioVisualizer : MonoBehaviour
         if (avg - prevAvg > 0.0012f) // avg is > than prevAvg
         {
             avg = prevAvg + 0.0012f;
-            time = 0;
+            avg = Mathf.Lerp(prevAvg, avg, time);
         }
         else if (avg - prevAvg < -0.0012f) // avg is < than prevAvg
         {
