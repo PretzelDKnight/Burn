@@ -65,23 +65,23 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _ForwardlDistort: 0.1
+    - _ForwardlDistort: 0.2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HorizontalDistort: 0.1
+    - _HorizontalDistort: 0.2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScrollSpeed: 1
+    - _ScrollSpeed: 76.68
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _VerticalDistort: 0.1
+    - _VerticalDistort: 0.2
     - _WaveSpeed: 2
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.10849059, g: 1, b: 0.8799678, a: 1}
+    - _Color: {r: 0, g: 0.49056602, b: 0.42357248, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

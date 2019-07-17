@@ -23,13 +23,14 @@
         {
 		// Alpha blending
 			Blend SrcAlpha OneMinusSrcAlpha
+			Cull Back
 			ZWrite Off
 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             // make fog work
-            //#pragma multi_compile_fog
+            #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
 
@@ -42,9 +43,9 @@
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                //UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
-				float3 normal : TEXCOORD1;
+				float3 normal : TEXCOORD2;
             };
 
             sampler2D _MainTex;
@@ -69,7 +70,7 @@
 				o.vertex = mul(UNITY_MATRIX_VP, worldPos);
                 //o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                //UNITY_TRANSFER_FOG(o,o.vertex);
+                UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
 
@@ -80,7 +81,7 @@
                 fixed4 col = tex2D(_MainTex, i.uv);
 				col *= _Color;
                 // apply fog
-                //UNITY_APPLY_FOG(i.fogCoord, col);
+                UNITY_APPLY_FOG(i.fogCoord, col);
 
                 return col;
             }
