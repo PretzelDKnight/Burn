@@ -7,14 +7,14 @@ enum MenuState { Main, NewGame, Continue, Options }
 public class MenuManager : MonoBehaviour
 {
     MenuState state;
-    public Animator anim;
+    public Animator NGanim;
+    public Animator Canim;
+    public Animator Oanim;
 
     // Start is called before the first frame update
     void Start()
     {
         state = MenuState.Main;
-        anim.SetBool("Main", true);
-        anim.SetBool("NewGame", false);
     }
 
     // Update is called once per frame
@@ -23,24 +23,31 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case MenuState.Main:
-                anim.SetBool("NewGame", false);
-                anim.SetBool("Main", true);
+                NGanim.SetTrigger("Main Menu");
+                Canim.SetTrigger("Main Menu");
+                Oanim.SetTrigger("Main Menu");
                 break;
             case MenuState.NewGame:
-                anim.SetBool("NewGame", true);
-                anim.SetBool("Main", false);
+                NGanim.SetTrigger("This Option");
+                Canim.SetTrigger("Other Option");
+                Oanim.SetTrigger("Other Option");
                 break;
             case MenuState.Continue:
-                anim.SetBool("NewGame", false);
-                anim.SetBool("Main", false);
+                NGanim.SetTrigger("Other Option");
+                Canim.SetTrigger("This Option");
+                Oanim.SetTrigger("Other Option");
                 break;
             case MenuState.Options:
-                anim.SetBool("NewGame", false);
-                anim.SetBool("Main", false);
+                NGanim.SetTrigger("Other Option");
+                Canim.SetTrigger("Other Option");
+                Oanim.SetTrigger("This Option");
                 break;
             default:
                 break;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Main();
     }
 
     public void NewGame()
