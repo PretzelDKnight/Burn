@@ -43,6 +43,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 02268c033dfe00148b95c4eaf78ddd6b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask:
+        m_Texture: {fileID: 2800000, guid: d1d2f33a688fcea4cb636019e8aedb96, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -69,11 +73,15 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HorizontalDistort: 1
+    - _MaskOffset: -0.49
+    - _MaxBarWidth: 1.78
     - _Metallic: 0
+    - _MinBarWidth: 2.3
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Offset: -0.42
     - _Parallax: 0.02
+    - _ScrollSpeed: -2.44
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

@@ -3,11 +3,16 @@
 	Properties
 	{
 		_MainTex("Texture", 2D) = "white" {}
+		_Mask("Mask", 2D) = "white" {}
 		_NoiseTex("Noise Texture", 2D) = "white" {}
 		_ColorMask("Color Mask", Color) = (1,1,1,1)
 		[HDR]_BottomColor("Bottom Color", Color) = (1, 1, 1, 1)
 		[HDR]_TopColor("Top Color", Color) = (1,1,1,1)
 		_Offset("Offset", float) = 0
+		_MaskOffset("Mask Offset", float) = 0
+		_MinBarWidth("Min Bar Width", float) = 0
+		_MaxBarWidth("Max Bar Width", float) = 0
+		_ScrollSpeed("Scroll Speed", float) = 0
 	}
 
 		SubShader
@@ -44,27 +49,42 @@
 				float4 position	: SV_POSITION;
 				float2 uv		: TEXCOORD0;
 				half4 color		: COLOR;
+				float4 bar      : TEXCOOORD1;
+				float2 barUv    : TEXCOORD2;
 			};
 
 			sampler2D _MainTex;
 			sampler2D _NoiseTex;
+			sampler2D _Mask;
 			float4 _MainTex_ST;
+			float4 _Mask_ST;
 			half4 _BottomColor;
 			half4 _TopColor;
 			float4 _ColorMask;
-			float _Offset;
+			float _Offset; 
+			float _MaskOffset;
+			float _MinBarWidth;
+			float _MaxBarWidth;
+			float _ScrollSpeed;
 
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
 				OUT.position = UnityObjectToClipPos(IN.position);
 				OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+				OUT.barUv = TRANSFORM_TEX(IN.uv, _Mask);
 
 				float factor = mad(OUT.position.y, -0.5, 0.5);
 				factor *= 1 + _Offset * 2;
 				factor -= _Offset;
 				factor = clamp(factor, 0, 1);
 				OUT.color = lerp(_BottomColor, _TopColor, factor);
+
+				float barFactor = mad(OUT.position.y, -0.5, 0.5);
+				barFactor *= 1 + _MaskOffset * 2;
+				barFactor -= _MaskOffset;
+				barFactor = clamp(barFactor, 0, 1);
+				OUT.bar = lerp(_MinBarWidth, _MaxBarWidth, barFactor);
 
 				return OUT;
 			}
@@ -81,12 +101,16 @@
 			{
 				half4 texCol = tex2D(_MainTex, IN.uv);
 
+				IN.barUv.y = IN.barUv.y * IN.bar - _Time * _ScrollSpeed;
+
+				half4 maskCol = tex2D(_Mask, IN.barUv);
+
 				half4 c;
 				c.rgb = IN.color.rgb + getNoise(IN.uv);
 				c.rgb *= texCol.a;
 				c.a = texCol.a;
 
-				return c * _ColorMask;
+				return c * _ColorMask * maskCol.a;
 			}
 
 			ENDCG

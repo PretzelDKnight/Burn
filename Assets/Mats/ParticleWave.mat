@@ -66,7 +66,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DistortStrength: 1
     - _DstBlend: 10
-    - _ForwardlDistort: 0.5
+    - _ForwardlDistort: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -75,12 +75,12 @@ Material:
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScrollSpeed: 40
+    - _ScrollSpeed: 50
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _VerticalDistort: 0.5
+    - _VerticalDistort: 0.75
     - _WaveSpeed: 7
     - _ZWrite: 0
     m_Colors:
