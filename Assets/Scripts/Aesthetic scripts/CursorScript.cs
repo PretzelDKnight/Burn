@@ -10,9 +10,12 @@ public class CursorScript : MonoBehaviour
 
     List<ParticleSystem> ripples;
 
+    float time;
+
     // Start is called before the first frame update
     void Start()
     {
+        time = 0;
         Cursor.visible = false;
         ripples = new List<ParticleSystem>();
     }
@@ -20,6 +23,8 @@ public class CursorScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
+
         Vector3 screenPoint = Input.mousePosition;
         screenPoint.z = canvas.planeDistance - 0.03f; //distance of the plane from the camera
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
@@ -29,22 +34,25 @@ public class CursorScript : MonoBehaviour
             ParticleSystem temp = Instantiate(ripple);
             ripples.Add(Instantiate(temp));
             temp.transform.position = transform.position;
+            temp.tag = "Ripple";
             temp.Play();
+            Destroy(temp.gameObject, 1f);
+            time = 0;
         }
-
-        DestroyRipples();
+        else
+        {
+            if (time >= 1f)
+            {
+                DestroyRipples();
+            }
+        }
     }
 
     void DestroyRipples()
     {
         for (int i = 0; i < ripples.Count; i++)
         {
-            if (!ripples[i].isPlaying)
-            {
-                ParticleSystem temp = ripples[i];
-                ripples.Remove(temp);
-                Destroy(temp);
-            }
+            Destroy(ripples[i]);
         }
     }
 }
