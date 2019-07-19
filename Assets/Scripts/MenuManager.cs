@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
     public Animator Canim;
     public Animator Oanim;
 
-    public AnimationEvent function;
+    public AudioSource SFX;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,8 @@ public class MenuManager : MonoBehaviour
         NGanim.SetBool("Other Option", false);
         Canim.SetBool("Other Option", false);
         Oanim.SetBool("Other Option", false);
+
+        SFX.Stop();
     }
 
     // Update is called once per frame
@@ -50,6 +52,7 @@ public class MenuManager : MonoBehaviour
     public void NewGame()
     {
         state = MenuState.NewGame;
+        SFX.Play();
         NGanim.SetBool("This Option", true);
         Canim.SetBool("Other Option", true);
         Oanim.SetBool("Other Option", true);
@@ -59,6 +62,7 @@ public class MenuManager : MonoBehaviour
     public void Continue()
     {
         state = MenuState.Continue;
+        SFX.Play();
         NGanim.SetBool("Other Option", true);
         Canim.SetBool("This Option", true);
         Oanim.SetBool("Other Option", true);
@@ -67,6 +71,7 @@ public class MenuManager : MonoBehaviour
     public void Options()
     {
         state = MenuState.Options;
+        SFX.Play();
         NGanim.SetBool("Other Option", true);
         Canim.SetBool("Other Option", true);
         Oanim.SetBool("This Option", true);
@@ -75,6 +80,7 @@ public class MenuManager : MonoBehaviour
     public void Main()
     {
         state = MenuState.Main;
+        SFX.Play();
         NGanim.SetBool("This Option", false);
         Canim.SetBool("This Option", false);
         Oanim.SetBool("This Option", false);
