@@ -1312,7 +1312,7 @@ MonoBehaviour:
   iterations: 5
   threshold: 0.16
   softThreshold: 1
-  intensity: 0.88
+  intensity: 1.25
   bloomShader: {fileID: 4800000, guid: a742de5e99d9b634bb8700f1ccac7343, type: 3}
   debug: 0
 --- !u!95 &963194230
