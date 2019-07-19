@@ -45,6 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Mask:
         m_Texture: {fileID: 2800000, guid: 02105e56323a9534ebb3b3542ccc252c, type: 3}
+        m_Scale: {x: 1, y: 1.04}
+        m_Offset: {x: 0, y: 0}
+    - _Mask2:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -73,7 +77,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HorizontalDistort: 1
-    - _MaskOffset: 5.3
+    - _MaskOffset: -0.31
     - _MaxBarWidth: -49.5
     - _Metallic: 0
     - _MinBarWidth: -10.2
@@ -81,6 +85,9 @@ Material:
     - _OcclusionStrength: 1
     - _Offset: -0.42
     - _Parallax: 0.02
+    - _PosX: 0
+    - _PosY: 0
+    - _Scale: 0
     - _ScrollSpeed: 21.74
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -94,4 +101,5 @@ Material:
     - _Color: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
     - _ColorMask: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _MColor: {r: 1, g: 1, b: 1, a: 1}
     - _TopColor: {r: 1, g: 0.6156863, b: 0, a: 1}
