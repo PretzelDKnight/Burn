@@ -11,10 +11,19 @@ public class MenuManager : MonoBehaviour
     public Animator Canim;
     public Animator Oanim;
 
+    public AnimationEvent function;
+
     // Start is called before the first frame update
     void Start()
     {
         state = MenuState.Main;
+        NGanim.SetBool("This Option", false);
+        Canim.SetBool("This Option", false);
+        Oanim.SetBool("This Option", false);
+
+        NGanim.SetBool("Other Option", false);
+        Canim.SetBool("Other Option", false);
+        Oanim.SetBool("Other Option", false);
     }
 
     // Update is called once per frame
@@ -23,24 +32,12 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case MenuState.Main:
-                NGanim.SetTrigger("Main Menu");
-                Canim.SetTrigger("Main Menu");
-                Oanim.SetTrigger("Main Menu");
                 break;
             case MenuState.NewGame:
-                NGanim.SetTrigger("This Option");
-                Canim.SetTrigger("Other Option");
-                Oanim.SetTrigger("Other Option");
                 break;
             case MenuState.Continue:
-                NGanim.SetTrigger("Other Option");
-                Canim.SetTrigger("This Option");
-                Oanim.SetTrigger("Other Option");
                 break;
             case MenuState.Options:
-                NGanim.SetTrigger("Other Option");
-                Canim.SetTrigger("Other Option");
-                Oanim.SetTrigger("This Option");
                 break;
             default:
                 break;
@@ -53,20 +50,43 @@ public class MenuManager : MonoBehaviour
     public void NewGame()
     {
         state = MenuState.NewGame;
+        NGanim.SetBool("This Option", true);
+        Canim.SetBool("Other Option", true);
+        Oanim.SetBool("Other Option", true);
+
     }
 
     public void Continue()
     {
         state = MenuState.Continue;
+        NGanim.SetBool("Other Option", true);
+        Canim.SetBool("This Option", true);
+        Oanim.SetBool("Other Option", true);
     }
 
     public void Options()
     {
         state = MenuState.Options;
+        NGanim.SetBool("Other Option", true);
+        Canim.SetBool("Other Option", true);
+        Oanim.SetBool("This Option", true);
     }
 
     public void Main()
     {
         state = MenuState.Main;
+        NGanim.SetBool("This Option", false);
+        Canim.SetBool("This Option", false);
+        Oanim.SetBool("This Option", false);
+
+        Invoke("Reset", 0.5f);
+        //Reset();
+    }
+
+    private void Reset()
+    {
+        NGanim.SetBool("Other Option", false);
+        Canim.SetBool("Other Option", false);
+        Oanim.SetBool("Other Option", false);
     }
 }
