@@ -34,12 +34,25 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case MenuState.Main:
+                NGanim.SetBool("This Option", false);
+                Canim.SetBool("This Option", false);
+                Oanim.SetBool("This Option", false);
+                Invoke("Reset", 0.5f);
                 break;
             case MenuState.NewGame:
+                NGanim.SetBool("This Option", true);
+                Canim.SetBool("Other Option", true);
+                Oanim.SetBool("Other Option", true);
                 break;
             case MenuState.Continue:
+                NGanim.SetBool("Other Option", true);
+                Canim.SetBool("This Option", true);
+                Oanim.SetBool("Other Option", true);
                 break;
             case MenuState.Options:
+                NGanim.SetBool("Other Option", true);
+                Canim.SetBool("Other Option", true);
+                Oanim.SetBool("This Option", true);
                 break;
             default:
                 break;
@@ -53,39 +66,25 @@ public class MenuManager : MonoBehaviour
     {
         state = MenuState.NewGame;
         SFX.Play();
-        NGanim.SetBool("This Option", true);
-        Canim.SetBool("Other Option", true);
-        Oanim.SetBool("Other Option", true);
-
     }
 
     public void Continue()
     {
         state = MenuState.Continue;
         SFX.Play();
-        NGanim.SetBool("Other Option", true);
-        Canim.SetBool("This Option", true);
-        Oanim.SetBool("Other Option", true);
     }
 
     public void Options()
     {
         state = MenuState.Options;
         SFX.Play();
-        NGanim.SetBool("Other Option", true);
-        Canim.SetBool("Other Option", true);
-        Oanim.SetBool("This Option", true);
     }
 
     public void Main()
     {
+        if (state != MenuState.Main)
+            SFX.Play();
         state = MenuState.Main;
-        SFX.Play();
-        NGanim.SetBool("This Option", false);
-        Canim.SetBool("This Option", false);
-        Oanim.SetBool("This Option", false);
-
-        Invoke("Reset", 0.5f);
         //Reset();
     }
 
