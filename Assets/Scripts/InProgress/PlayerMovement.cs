@@ -17,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        InputManger.HahaVeryFunny += KyleHasDirtyUnderwear;
-        InputManger.LeftAndRight += MoveForawrdOrBack;
-        InputManger.Jumping += Jump;
-        InputManger.Ducking += Duck;
+        InputManager.HahaVeryFunny += KyleHasDirtyUnderwear;
+        InputManager.LeftAndRight += MoveForawrdOrBack;
+        InputManager.JumpingForward += JumpForward;
+        InputManager.JumpingBack += JumpBack;
+        InputManager.Jumping += JumpStationary;
+        InputManager.Ducking += Duck;
         halfHightVertical = transform.localScale.y / 2;
     }
 
@@ -32,46 +34,56 @@ public class PlayerMovement : MonoBehaviour
     void MoveForawrdOrBack()
     {
         RayCastingFunction(Vector3.down);
-        if (grounder)
-        {
-            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
-            inAirRight = false;
-            inAirLeft = false;
-        }
-        else if (inAirRight && Input.GetAxisRaw("Horizontal") > 0)
+        
+        if (inAirRight && Input.GetAxisRaw("Horizontal") > 0)
             transform.position += new Vector3(1, 0, 0) * movementSpeed * Time.deltaTime;
         else if (inAirLeft && Input.GetAxisRaw("Horizontal") < 0)
             transform.position += new Vector3(-1, 0, 0) * movementSpeed * Time.deltaTime;
+        else
+        {
+            inAirRight = false;
+            inAirLeft = false;
+        }
+        if (grounder)
+            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
 
     }
-    void Jump()
+    void JumpForward()
     {
         RayCastingFunction(Vector3.down);
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (grounder)
         {
-            if (grounder)
-                playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             inAirRight = true;
             inAirLeft = false;
             Debug.Log("<color=green> right </color>");
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
+    }
+
+    void JumpBack()
+    {
+        RayCastingFunction(Vector3.down);
+        if (grounder)
         {
-            if (grounder)
-                playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             inAirRight = false;
             inAirLeft = true;
             Debug.Log("<color=yellow> left </color>");
         }
-        else if(Input.GetAxisRaw("Horizontal") == 0)
+    }
+
+    void JumpStationary()
+    {
+        RayCastingFunction(Vector3.down);
+        if (grounder)
         {
-            if (grounder)
-                playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
+            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             inAirLeft = false;
             inAirRight = false;
         }
-        
     }
+
+
     void Duck()
     {
         print("<color=red> DUCKING NOW </color>");
