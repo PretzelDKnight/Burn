@@ -6333,7 +6333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   focus: {fileID: 1189861718}
-  speed: 1
+  speed: 0.5
   strength: 0.25
 --- !u!1 &965230158
 GameObject:
