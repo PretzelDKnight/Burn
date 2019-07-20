@@ -24,7 +24,6 @@ public class CameraBreath : MonoBehaviour
     {
         time += Time.deltaTime;
 
-
         transform.position = new Vector3( transform.position.x, position.y + Mathf.Sin(time * speed) * strength, transform.position.z);
 
         transform.LookAt(focus.transform);
