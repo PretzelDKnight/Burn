@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
+[ExecuteInEditMode, ImageEffectAllowedInSceneView]
 public class PixelateEffect : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Material pixel;
 
     // Update is called once per frame
     void Update()
@@ -19,6 +15,6 @@ public class PixelateEffect : MonoBehaviour
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        
+        Graphics.Blit(source, destination, pixel);
     }
 }

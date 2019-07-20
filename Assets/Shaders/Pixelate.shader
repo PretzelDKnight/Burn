@@ -1,8 +1,10 @@
-﻿Shader "Hidden/Pixelate"
+﻿Shader "Custom/Pixelate"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_Multiplier("Multiplier", float) = 4
+
     }
     SubShader
     {
@@ -38,12 +40,15 @@
             }
 
             sampler2D _MainTex;
+			float _Multiplier;
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // just invert the colors
-                col.rgb = 1 - col.rgb;
+			fixed4 frag(v2f i) : SV_Target
+			{
+				float2 uv = i.uv;
+				float2 app = _ScreenParams * _Multiplier;
+				uv.x = round(uv.x * app.x) / app.x;
+				uv.y = round(uv.y * app.y) / app.y;
+                fixed4 col = tex2D(_MainTex, uv);
                 return col;
             }
             ENDCG
