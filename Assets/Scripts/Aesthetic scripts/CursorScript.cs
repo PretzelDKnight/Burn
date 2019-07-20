@@ -27,6 +27,7 @@ public class CursorScript : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0))
         {
             ParticleSystem temp = Instantiate(ripple);
+            //temp.transform.parent = canvas.transform;
             temp.tag = "Ripple";
             ripples.Add(Instantiate(temp));
             temp.transform.position = transform.position;

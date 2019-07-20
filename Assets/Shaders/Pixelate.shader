@@ -3,7 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-		_Multiplier("Multiplier", float) = 4
+		_Multiplier("Multiplier", Range(0,1)) = 0.5
 
     }
     SubShader
