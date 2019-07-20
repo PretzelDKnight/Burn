@@ -15,6 +15,9 @@ public class InputManager : MonoBehaviour
     public static event Movement JumpingBack;
     public static event Movement Jumping;
     public static event Movement Ducking;
+    public static event Movement Ineracting;
+    public static event Movement Attacking;
+    public static event Movement Special;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +39,18 @@ public class InputManager : MonoBehaviour
             if (LeftAndRight != null)
                 LeftAndRight();
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) && Input.GetAxisRaw("Horizontal") > 0)
+
+        if (Input.GetKeyDown(KeyCode.Z) && Input.GetAxisRaw("Horizontal") > 0)
         {
             if (JumpingForward != null)
                 JumpingForward();
         }
-         else if (Input.GetKeyDown(KeyCode.UpArrow) && Input.GetAxisRaw("Horizontal") < 0)
+         else if (Input.GetKeyDown(KeyCode.Z) && Input.GetAxisRaw("Horizontal") < 0)
         {
             if (JumpingBack != null)
                 JumpingBack();
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.Z))
         {
             if (Jumping != null)
                 Jumping();
@@ -56,6 +60,21 @@ public class InputManager : MonoBehaviour
         {
             if (Ducking != null)
                 Ducking();
+        }
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            if (Ineracting != null)
+                Ineracting();
+        }
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            if (Attacking != null)
+                Attacking();
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            if (Special != null)
+                Special();
         }
     }
 }
