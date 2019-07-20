@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
         InputManager.JumpingBack += JumpBack;
         InputManager.Jumping += JumpStationary;
         InputManager.Ducking += Duck;
+        InputManager.Ineracting += Interact;
+        InputManager.Attacking += Attack;
+        InputManager.Special += SpecialAttack;
         halfHightVertical = transform.localScale.y / 2;
     }
 
@@ -87,6 +90,21 @@ public class PlayerMovement : MonoBehaviour
     void Duck()
     {
         print("<color=red> DUCKING NOW </color>");
+    }
+
+    void Interact()
+    {
+        print("<color=pink> INTERACTING NOW</color>");
+    }
+
+    void Attack()
+    {
+        print("<color=cyan> ATTACKING NOW </color>");
+    }
+
+    void SpecialAttack()
+    {
+        print("<color=cyan> USING SPECIAL-ATTACK NOW </color>");
     }
 
     void RayCastingFunction(Vector3 rayDirection)
