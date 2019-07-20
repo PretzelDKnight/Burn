@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class InputManger : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
     float i;
     public delegate void PrintMaster9000(float b);
     public static event PrintMaster9000 HahaVeryFunny;
     public delegate void Movement();
     public static event Movement LeftAndRight;
+    public static event Movement JumpingForward;
+    public static event Movement JumpingBack;
     public static event Movement Jumping;
     public static event Movement Ducking;
 
@@ -34,11 +36,22 @@ public class InputManger : MonoBehaviour
             if (LeftAndRight != null)
                 LeftAndRight();
         }
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            if (JumpingForward != null)
+                JumpingForward();
+        }
+         else if (Input.GetKeyDown(KeyCode.UpArrow) && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            if (JumpingBack != null)
+                JumpingBack();
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (Jumping != null)
                 Jumping();
         }
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Ducking != null)
