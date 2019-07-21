@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bloom
   - Ripple
+  - Ground
   layers:
   - Default
   - TransparentFX

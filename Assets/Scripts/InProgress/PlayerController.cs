@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     bool grounder = true;
     bool inAirRight = false;
     bool inAirLeft = false;
+    bool onGround = true;
     float halfHightVertical;
 
 
@@ -36,9 +37,11 @@ public class PlayerController : MonoBehaviour
     }
     void MoveForawrdOrBack()
     {
-        RayCastingFunction(Vector3.down);
-        
-        if (inAirRight && Input.GetAxisRaw("Horizontal") > 0)
+        if (onGround)
+        {
+            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
+        }
+        else if (inAirRight && Input.GetAxisRaw("Horizontal") > 0)
             transform.position += new Vector3(1, 0, 0) * movementSpeed * Time.deltaTime;
         else if (inAirLeft && Input.GetAxisRaw("Horizontal") < 0)
             transform.position += new Vector3(-1, 0, 0) * movementSpeed * Time.deltaTime;
@@ -47,9 +50,6 @@ public class PlayerController : MonoBehaviour
             inAirRight = false;
             inAirLeft = false;
         }
-        if (grounder)
-            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
-
     }
     void JumpForward()
     {
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             inAirRight = true;
             inAirLeft = false;
-            Debug.Log("<color=green> right </color>");
+            Debug.Log("<color=green> right </color>" + onGround);
         }
     }
 
@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
             inAirRight = false;
             inAirLeft = true;
-            Debug.Log("<color=yellow> left </color>");
+            Debug.Log("<color=yellow> left </color>" + onGround);
         }
     }
 
@@ -118,4 +118,16 @@ public class PlayerController : MonoBehaviour
             grounder = false;
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+            onGround = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+            onGround = false;
+    }
+
 }
