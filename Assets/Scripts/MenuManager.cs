@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
 
     public AudioSource frontSFX;
     public AudioSource backSFX;
+    public AudioSource moveSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class MenuManager : MonoBehaviour
 
         frontSFX.Stop();
         backSFX.Stop();
+        moveSFX.Stop();
     }
 
     // Update is called once per frame
@@ -95,5 +97,10 @@ public class MenuManager : MonoBehaviour
         NGanim.SetBool("Other Option", false);
         Canim.SetBool("Other Option", false);
         Oanim.SetBool("Other Option", false);
+    }
+
+    public void Change()
+    {
+        moveSFX.Play();
     }
 }
