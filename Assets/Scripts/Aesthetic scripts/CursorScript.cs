@@ -8,13 +8,10 @@ public class CursorScript : MonoBehaviour
 
     public ParticleSystem ripple;
 
-    List<ParticleSystem> ripples;
-
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
-        ripples = new List<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -29,7 +26,6 @@ public class CursorScript : MonoBehaviour
             ParticleSystem temp = Instantiate(ripple);
             //temp.transform.parent = canvas.transform;
             temp.tag = "Ripple";
-            ripples.Add(Instantiate(temp));
             temp.transform.position = transform.position;
         }
     }
