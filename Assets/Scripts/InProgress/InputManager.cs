@@ -11,8 +11,6 @@ public class InputManager : MonoBehaviour
     public static event PrintMaster9000 HahaVeryFunny;
     public delegate void Movement();
     public static event Movement LeftAndRight;
-    public static event Movement JumpingForward;
-    public static event Movement JumpingBack;
     public static event Movement Jumping;
     public static event Movement Ducking;
     public static event Movement Ineracting;
@@ -39,18 +37,7 @@ public class InputManager : MonoBehaviour
             if (LeftAndRight != null)
                 LeftAndRight();
         }
-
-        if (Input.GetKeyDown(KeyCode.Z) && Input.GetAxisRaw("Horizontal") > 0)
-        {
-            if (JumpingForward != null)
-                JumpingForward();
-        }
-         else if (Input.GetKeyDown(KeyCode.Z) && Input.GetAxisRaw("Horizontal") < 0)
-        {
-            if (JumpingBack != null)
-                JumpingBack();
-        }
-        else if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (Jumping != null)
                 Jumping();
