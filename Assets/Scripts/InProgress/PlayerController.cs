@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] Rigidbody2D playerRb;
     [SerializeField] LayerMask layerMask;
+    int jumpNumber = 2;
     bool grounder = true;
     float halfHightVertical;
 
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Interacting += Interact;
         InputManager.Attacking += Attack;
         InputManager.Special += SpecialAttack;
-        halfHightVertical = transform.localScale.y / 2+.1f;
+        halfHightVertical = transform.localScale.y / 2 +.1f;
 
         playerRb = GetComponent<Rigidbody2D>();
     }
@@ -43,6 +44,12 @@ public class PlayerController : MonoBehaviour
         if (grounder)
         {
             playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpNumber = 1;
+        }
+        else if(jumpNumber > 0)
+        {
+            playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpNumber--;
         }
     }
 
