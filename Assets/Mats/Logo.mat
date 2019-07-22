@@ -80,6 +80,7 @@ Material:
     - _Metallic: 0
     - _MinBarWidth: 1.26
     - _Mode: 0
+    - _Multiplier: 0.2
     - _OcclusionStrength: 1
     - _Offset: -3.4
     - _Parallax: 0.02
