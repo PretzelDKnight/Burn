@@ -6,12 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
-    [SerializeField] Rigidbody playerRb;
-    [SerializeField] string LayermaskName;
+    [SerializeField] Rigidbody2D playerRb;
+    [SerializeField] LayerMask layerMask;
+    int jumpNumber = 2;
     bool grounder = true;
-    bool inAirRight = false;
-    bool inAirLeft = false;
-    bool onGround = true;
     float halfHightVertical;
 
 
@@ -20,14 +18,14 @@ public class PlayerController : MonoBehaviour
     {
         InputManager.HahaVeryFunny += KyleHasDirtyUnderwear;
         InputManager.LeftAndRight += MoveForawrdOrBack;
-        InputManager.JumpingForward += JumpForward;
-        InputManager.JumpingBack += JumpBack;
-        InputManager.Jumping += JumpStationary;
+        InputManager.Jumping += Jump;
         InputManager.Ducking += Duck;
         InputManager.Interacting += Interact;
         InputManager.Attacking += Attack;
         InputManager.Special += SpecialAttack;
-        halfHightVertical = transform.localScale.y / 2;
+        halfHightVertical = transform.localScale.y / 2 +.1f;
+
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
 
@@ -37,52 +35,21 @@ public class PlayerController : MonoBehaviour
     }
     void MoveForawrdOrBack()
     {
-        if (onGround)
-        {
-            transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
-        }
-        else if (inAirRight && Input.GetAxisRaw("Horizontal") > 0)
-            transform.position += new Vector3(1, 0, 0) * movementSpeed * Time.deltaTime;
-        else if (inAirLeft && Input.GetAxisRaw("Horizontal") < 0)
-            transform.position += new Vector3(-1, 0, 0) * movementSpeed * Time.deltaTime;
-        else
-        {
-            inAirRight = false;
-            inAirLeft = false;
-        }
-    }
-    void JumpForward()
-    {
-        RayCastingFunction(Vector3.down);
-        if (grounder)
-        {
-            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-            inAirRight = true;
-            inAirLeft = false;
-            Debug.Log("<color=green> right </color>" + onGround);
-        }
+        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
     }
 
-    void JumpBack()
+    void Jump()
     {
         RayCastingFunction(Vector3.down);
         if (grounder)
         {
-            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-            inAirRight = false;
-            inAirLeft = true;
-            Debug.Log("<color=yellow> left </color>" + onGround);
+            playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpNumber = 1;
         }
-    }
-
-    void JumpStationary()
-    {
-        RayCastingFunction(Vector3.down);
-        if (grounder)
+        else if(jumpNumber > 0)
         {
-            playerRb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
-            inAirLeft = false;
-            inAirRight = false;
+            playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            jumpNumber--;
         }
     }
 
@@ -109,7 +76,10 @@ public class PlayerController : MonoBehaviour
 
     void RayCastingFunction(Vector3 rayDirection)
     {
-        if(Physics.Raycast(transform.position, rayDirection, halfHightVertical, LayerMask.GetMask(LayermaskName)))
+        var Check = Physics2D.Raycast(transform.position, rayDirection, halfHightVertical, layerMask);
+        Debug.DrawLine(transform.position, transform.position + rayDirection* halfHightVertical);
+        Debug.Log(Check.collider); 
+        if (Check.collider)
         {
             grounder = true;
         }
@@ -117,17 +87,6 @@ public class PlayerController : MonoBehaviour
         {
             grounder = false;
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-            onGround = true;
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-            onGround = false;
     }
 
 }
