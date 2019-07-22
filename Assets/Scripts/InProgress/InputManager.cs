@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     public static event Movement LeftAndRight;
     public static event Movement Jumping;
     public static event Movement Ducking;
-    public static event Movement Ineracting;
+    public static event Movement Interacting;
     public static event Movement Attacking;
     public static event Movement Special;
 
@@ -50,8 +50,8 @@ public class InputManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
-            if (Ineracting != null)
-                Ineracting();
+            if (Interacting != null)
+                Interacting();
         }
         if(Input.GetKeyDown(KeyCode.X))
         {

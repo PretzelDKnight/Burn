@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         InputManager.LeftAndRight += MoveForawrdOrBack;
         InputManager.Jumping += Jump;
         InputManager.Ducking += Duck;
-        InputManager.Ineracting += Interact;
+        InputManager.Interacting += Interact;
         InputManager.Attacking += Attack;
         InputManager.Special += SpecialAttack;
         halfHightVertical = transform.localScale.y / 2+.1f;

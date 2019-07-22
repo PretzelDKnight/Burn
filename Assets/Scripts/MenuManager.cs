@@ -11,7 +11,8 @@ public class MenuManager : MonoBehaviour
     public Animator Canim;
     public Animator Oanim;
 
-    public AudioSource SFX;
+    public AudioSource frontSFX;
+    public AudioSource backSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,8 @@ public class MenuManager : MonoBehaviour
         Canim.SetBool("Other Option", false);
         Oanim.SetBool("Other Option", false);
 
-        SFX.Stop();
+        frontSFX.Stop();
+        backSFX.Stop();
     }
 
     // Update is called once per frame
@@ -65,25 +67,25 @@ public class MenuManager : MonoBehaviour
     public void NewGame()
     {
         state = MenuState.NewGame;
-        SFX.Play();
+        frontSFX.Play();
     }
 
     public void Continue()
     {
         state = MenuState.Continue;
-        SFX.Play();
+        frontSFX.Play();
     }
 
     public void Options()
     {
         state = MenuState.Options;
-        SFX.Play();
+        frontSFX.Play();
     }
 
     public void Main()
     {
         if (state != MenuState.Main)
-            SFX.Play();
+            backSFX.Play();
         state = MenuState.Main;
         //Reset();
     }

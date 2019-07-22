@@ -13,6 +13,7 @@
 		_MinBarWidth("Min Bar Width", float) = 0
 		_MaxBarWidth("Max Bar Width", float) = 0
 		_ScrollSpeed("Scroll Speed", float) = 0
+		_Multiplier("Pixel Multiplier", Range(0,1)) = 0.5
 	}
 
 		SubShader
@@ -66,6 +67,7 @@
 			float _MinBarWidth;
 			float _MaxBarWidth;
 			float _ScrollSpeed;
+			float _Multiplier;
 
 			v2f vert(appdata_t IN)
 			{
@@ -99,7 +101,12 @@
 
 			half4 frag(v2f IN) : SV_Target
 			{
-				half4 texCol = tex2D(_MainTex, IN.uv);
+				float2 uv = IN.uv;
+				float2 app = _ScreenParams * _Multiplier;
+				uv.x = round(uv.x * app.x) / app.x;
+				uv.y = round(uv.y * app.y) / app.y;
+
+				half4 texCol = tex2D(_MainTex, uv);
 
 				IN.barUv.y = IN.barUv.y * IN.bar - _Time * _ScrollSpeed;
 
