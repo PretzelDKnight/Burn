@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(jumpNumber > 0)
         {
-            playerRb.velocity = new Vector3(0,0,0);
+            playerRb.velocity = new Vector2(playerRb.velocity.x,0);
             playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpNumber--;
         }
