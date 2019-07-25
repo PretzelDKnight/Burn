@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
-    [SerializeField] Rigidbody2D playerRb;
     [SerializeField] LayerMask layerMask;
+    Rigidbody2D playerRb;
     int jumpNumber = 2;
     bool grounder = true;
     float halfHightVertical;
@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(jumpNumber > 0)
         {
+            playerRb.velocity = new Vector3(0,0,0);
             playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpNumber--;
         }
