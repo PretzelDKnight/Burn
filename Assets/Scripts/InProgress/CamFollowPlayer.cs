@@ -13,7 +13,7 @@ public class CamFollowPlayer : MonoBehaviour
     // Updating the positon of camera to follow the player at all times
     void LateUpdate()
     {
-        Vector3 requiredSpot = new Vector3(target.transform.position.x + camOffSet.x, camOffSet.y, target.transform.position.z + camOffSet.z);
+        Vector3 requiredSpot = new Vector3(target.transform.position.x, transform.position.y, transform.position.z);
         transform.position = requiredSpot;
 
         //transform.LookAt(target.transform);

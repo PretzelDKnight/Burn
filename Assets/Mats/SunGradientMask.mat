@@ -77,7 +77,7 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HorizontalDistort: 1
-    - _MaskOffset: 1.16
+    - _MaskOffset: -0.29
     - _MaxBarWidth: -49.5
     - _Metallic: 0
     - _MinBarWidth: -10.2
