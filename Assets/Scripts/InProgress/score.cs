@@ -20,7 +20,7 @@ public class score : MonoBehaviour
 
     void timedscore()
     {
-        print((int)pscore);
+        //print((int)pscore);
     }
 
     void comboscore(int i)

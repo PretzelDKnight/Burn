@@ -6,10 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
+    [SerializeField] float jumpForceForward;
     [SerializeField] LayerMask layerMask;
     Rigidbody2D playerRb;
     int jumpNumber = 2;
     bool grounder = true;
+    bool onLeftWall = false;
+    bool onRightWall = false;
     float halfHightVertical;
 
 
@@ -45,6 +48,21 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             jumpNumber = 1;
+        }
+        else if(onLeftWall || onRightWall)
+        {
+            if(onRightWall)
+            {
+                playerRb.velocity = new Vector2(0, 0);
+                playerRb.AddForce(new Vector2(-jumpForceForward, jumpForce), ForceMode2D.Impulse);
+                print("entered");
+            }
+            else if (onLeftWall)
+            {
+                playerRb.velocity = new Vector2(0, 0);
+                playerRb.AddForce(new Vector2(jumpForceForward, jumpForce), ForceMode2D.Impulse);
+                print("entered");
+            }
         }
         else if(jumpNumber > 0)
         {
@@ -87,6 +105,32 @@ public class PlayerController : MonoBehaviour
         else
         {
             grounder = false;
+        }
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "WallRight")
+        {
+            onRightWall = true;
+        }
+        if (collision.gameObject.tag == "WallLeft")
+        {
+            onLeftWall = true;
+        }
+    }
+
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "WallRight")
+        {
+            onRightWall = false;
+        }
+        if (collision.gameObject.tag == "WallLeft")
+        {
+            onLeftWall = false;
         }
     }
 
