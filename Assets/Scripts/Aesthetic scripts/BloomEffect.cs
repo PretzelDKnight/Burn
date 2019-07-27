@@ -62,7 +62,7 @@ public class BloomEffect : MonoBehaviour
             {
                 break;
             }
-            currentDestination = textures[i] = RenderTexture.GetTemporary(width, height, 0, format);
+            currentDestination = textures[i] = RenderTexture.GetTemporary( 0 + width, height, 0, format);
             Graphics.Blit(currentSource, currentDestination, bloom, BoxDownPass);
             currentSource = currentDestination;
         }
