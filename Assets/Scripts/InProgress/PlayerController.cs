@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
     }
     void MoveForawrdOrBack()
     {
+        if (playerRb.velocity != new Vector2(0,playerRb.velocity.y))
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0)
+                playerRb.velocity = new Vector2(0, playerRb.velocity.y);
+        }
         transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
     }
 
