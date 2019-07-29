@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     bool grounder = true;
     bool onLeftWall = false;
     bool onRightWall = false;
+    bool notInAir = false;
     float halfHightVertical;
 
 
@@ -38,12 +39,16 @@ public class PlayerController : MonoBehaviour
     }
     void MoveForawrdOrBack()
     {
+        RayCastingFunction(Vector3.down);
+        if (grounder)
+            notInAir = true;
+
         if (playerRb.velocity != new Vector2(0,playerRb.velocity.y))
         {
             if (Input.GetAxisRaw("Horizontal") != 0)
                 playerRb.velocity = new Vector2(0, playerRb.velocity.y);
         }
-        transform.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0) * movementSpeed * Time.deltaTime;
+        playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
     }
 
     void Jump()
@@ -51,8 +56,9 @@ public class PlayerController : MonoBehaviour
         RayCastingFunction(Vector3.down);
         if (grounder)
         {
-            playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
             jumpNumber = 1;
+            notInAir = false;
         }
         else if(onLeftWall || onRightWall)
         {
@@ -60,19 +66,18 @@ public class PlayerController : MonoBehaviour
             {
                 playerRb.velocity = new Vector2(0, 0);
                 playerRb.AddForce(new Vector2(-jumpForceForward, jumpForce), ForceMode2D.Impulse);
-                print("entered");
             }
             else if (onLeftWall)
             {
                 playerRb.velocity = new Vector2(0, 0);
                 playerRb.AddForce(new Vector2(jumpForceForward, jumpForce), ForceMode2D.Impulse);
-                print("entered");
             }
+            notInAir = false;
         }
         else if(jumpNumber > 0)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x,0);
-            playerRb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            playerRb.velocity = new Vector2(playerRb.velocity.x, 0);
+            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
             jumpNumber--;
         }
     }
@@ -97,6 +102,17 @@ public class PlayerController : MonoBehaviour
     {
         print("<color=cyan> USING SPECIAL-ATTACK NOW </color>");
     }
+
+
+    void Update()
+    {
+        if(Input.GetAxisRaw("Horizontal") == 0 && notInAir)
+        {
+            playerRb.velocity = new Vector2(0,playerRb.velocity.y);
+        }
+        
+    }
+
 
     void RayCastingFunction(Vector3 rayDirection)
     {
