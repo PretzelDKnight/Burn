@@ -7,14 +7,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] float jumpForce;
     [SerializeField] float jumpForceForward;
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask floorLayerMask;
+    [SerializeField] LayerMask wallLayerMask;
     Rigidbody2D playerRb;
     int jumpNumber = 2;
-    bool grounder = true;
+    bool grounded = true;
     bool onLeftWall = false;
     bool onRightWall = false;
     bool notInAir = false;
     float halfHightVertical;
+    float halfHightHorizontal;
 
 
 
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Attacking += Attack;
         InputManager.Special += SpecialAttack;
         halfHightVertical = transform.localScale.y / 2 +.1f;
+        halfHightHorizontal = transform.localScale.x / 2 + .1f;
 
         playerRb = GetComponent<Rigidbody2D>();
     }
@@ -39,22 +42,20 @@ public class PlayerController : MonoBehaviour
     }
     void MoveForawrdOrBack()
     {
-        RayCastingFunction(Vector3.down);
-        if (grounder)
+        RayCastingFunction();
+        if (grounded)
             notInAir = true;
 
-        if (playerRb.velocity != new Vector2(0,playerRb.velocity.y))
-        {
-            if (Input.GetAxisRaw("Horizontal") != 0)
-                playerRb.velocity = new Vector2(0, playerRb.velocity.y);
-        }
-        playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
+        if ((onLeftWall || onRightWall) && !grounded) ;
+
+        else
+            playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
     }
 
     void Jump()
     {
-        RayCastingFunction(Vector3.down);
-        if (grounder)
+        RayCastingFunction();
+        if (grounded)
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
             jumpNumber = 1;
@@ -114,45 +115,39 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void RayCastingFunction(Vector3 rayDirection)
+    void RayCastingFunction()
     {
-        var Check = Physics2D.Raycast(transform.position, rayDirection, halfHightVertical, layerMask);
-        Debug.DrawLine(transform.position, transform.position + rayDirection* halfHightVertical);
-        Debug.Log(Check.collider); 
-        if (Check.collider)
+        var checkDown = Physics2D.Raycast(transform.position, Vector3.down, halfHightVertical, floorLayerMask);
+        Debug.DrawLine(transform.position, Vector3.down * halfHightVertical, Color.red);
+        if (checkDown.collider)
         {
-            grounder = true;
+            grounded = true;
         }
         else
         {
-            grounder = false;
+            grounded = false;
         }
-    }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "WallRight")
-        {
-            onRightWall = true;
-        }
-        if (collision.gameObject.tag == "WallLeft")
+        var checkLeft = Physics2D.Raycast(transform.position, Vector3.left, halfHightHorizontal, wallLayerMask);
+        Debug.DrawLine(transform.position, Vector3.left * halfHightHorizontal, Color.yellow);
+        if (checkLeft.collider)
         {
             onLeftWall = true;
         }
-    }
-
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "WallRight")
-        {
-            onRightWall = false;
-        }
-        if (collision.gameObject.tag == "WallLeft")
+        else
         {
             onLeftWall = false;
         }
-    }
 
+        var checkRight = Physics2D.Raycast(transform.position, Vector3.right, halfHightHorizontal, wallLayerMask);
+        Debug.DrawLine(transform.position, Vector3.right * halfHightHorizontal, Color.green);
+        if (checkRight.collider)
+        {
+            onRightWall = true;
+        }
+        else
+        {
+            onRightWall = false;
+        }
+    }
 }

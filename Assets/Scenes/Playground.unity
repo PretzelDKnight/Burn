@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 759025185}
   - component: {fileID: 759025184}
   - component: {fileID: 759025189}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: WallRight
   m_Icon: {fileID: 0}
@@ -743,7 +743,7 @@ GameObject:
   - component: {fileID: 1227165622}
   - component: {fileID: 1227165621}
   - component: {fileID: 1227165626}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall (1)
   m_TagString: WallLeft
   m_Icon: {fileID: 0}
@@ -912,9 +912,12 @@ MonoBehaviour:
   movementSpeed: 5
   jumpForce: 7
   jumpForceForward: 4
-  layerMask:
+  floorLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!61 &1276635525
 BoxCollider2D:
   m_ObjectHideFlags: 0
