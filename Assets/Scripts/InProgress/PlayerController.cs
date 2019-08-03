@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed;
+    [SerializeField] float dashSpeed;
+    [SerializeField] float dashDuration;
     [SerializeField] float jumpForce;
     [SerializeField] float jumpForceForward;
     [SerializeField] LayerMask floorLayerMask;
@@ -15,6 +17,7 @@ public class PlayerController : MonoBehaviour
     bool onLeftWall = false;
     bool onRightWall = false;
     bool notInAir = false;
+    bool isDashing = false;
     float halfHightVertical;
     float halfHightHorizontal;
 
@@ -29,6 +32,7 @@ public class PlayerController : MonoBehaviour
         InputManager.Interacting += Interact;
         InputManager.Attacking += Attack;
         InputManager.Special += SpecialAttack;
+        InputManager.Dash += Dashing;
         halfHightVertical = transform.localScale.y / 2 +.1f;
         halfHightHorizontal = transform.localScale.x / 2 + .1f;
 
@@ -43,13 +47,16 @@ public class PlayerController : MonoBehaviour
     void MoveForawrdOrBack()
     {
         RayCastingFunction();
-        if (grounded)
-            notInAir = true;
+        if (!isDashing)
+        {
+            if (grounded)
+                notInAir = true;
 
-        if ((onLeftWall || onRightWall) && !grounded) ;
+            if ((onLeftWall || onRightWall) && !grounded) ;
 
-        else
-            playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
+            else
+                playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
+        }
     }
 
     void Jump()
@@ -83,6 +90,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Dashing()
+    {
+        Physics2D.IgnoreLayerCollision(11, 12, ignore: true);
+        isDashing = true;
+        StartCoroutine(StopDash(dashDuration));
+        playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * dashSpeed, 0);
+        print("<color=yellow> DASHING </color>");
+    }
 
     void Duck()
     {
@@ -149,5 +164,15 @@ public class PlayerController : MonoBehaviour
         {
             onRightWall = false;
         }
+    }
+
+
+    IEnumerator StopDash(float dashTime)
+    {
+        yield return new WaitForSeconds(dashTime);
+        playerRb.velocity = new Vector2(0, 0);
+        Physics2D.IgnoreLayerCollision(11, 12, ignore: false);
+        isDashing = false;
+        print("made 0");
     }
 }

@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     public static event Movement Interacting;
     public static event Movement Attacking;
     public static event Movement Special;
+    public static event Movement Dash;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,6 @@ public class InputManager : MonoBehaviour
             if (Jumping != null)
                 Jumping();
         }
-
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Ducking != null)
@@ -58,10 +58,15 @@ public class InputManager : MonoBehaviour
             if (Attacking != null)
                 Attacking();
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.A))
         {
             if (Special != null)
                 Special();
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            if (Dash != null)
+                Dash();
         }
     }
 }
