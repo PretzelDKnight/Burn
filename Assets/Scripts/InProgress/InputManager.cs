@@ -9,14 +9,13 @@ public class InputManager : MonoBehaviour
     float i;
     public delegate void PrintMaster9000(float b);
     public static event PrintMaster9000 HahaVeryFunny;
-    public delegate void Movement();
-    public static event Movement LeftAndRight;
-    public static event Movement Jumping;
-    public static event Movement Ducking;
-    public static event Movement Interacting;
-    public static event Movement Attacking;
-    public static event Movement Special;
-    public static event Movement Dash;
+    public delegate void PlayerControls();
+    public static event PlayerControls LeftAndRight;
+    public static event PlayerControls Jumping;
+    public static event PlayerControls Ducking;
+    public static event PlayerControls Interacting;
+    public static event PlayerControls Attacking;
+    public static event PlayerControls Dash;
 
     // Start is called before the first frame update
     void Start()
@@ -57,11 +56,6 @@ public class InputManager : MonoBehaviour
         {
             if (Attacking != null)
                 Attacking();
-        }
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            if (Special != null)
-                Special();
         }
         if(Input.GetKeyDown(KeyCode.C))
         {

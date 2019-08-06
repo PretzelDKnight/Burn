@@ -3183,7 +3183,7 @@ GameObject:
   - component: {fileID: 2841107893377387830}
   - component: {fileID: 8179916217578855611}
   m_Layer: 0
-  m_Name: Spot Light
+  m_Name: CarLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3742,7 +3742,7 @@ GameObject:
   - component: {fileID: 4833090386145687785}
   - component: {fileID: 8579057259764743695}
   m_Layer: 0
-  m_Name: Spot Light (1)
+  m_Name: CarLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
