@@ -45,7 +45,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Mask:
         m_Texture: {fileID: 2800000, guid: 02105e56323a9534ebb3b3542ccc252c, type: 3}
-        m_Scale: {x: 1, y: 55}
+        m_Scale: {x: 1, y: 26.17}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -71,7 +71,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MaskOffset: 0
+    - _MaskOffset: -2.22
     - _MaxBarWidth: 2.71
     - _Metallic: 0
     - _MinBarWidth: 3.43
