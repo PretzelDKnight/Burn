@@ -21,6 +21,13 @@ public class PlayerController : MonoBehaviour
     float halfHightVertical;                                    // The distance form the center of the player to the end of his model horizontally
     float halfHightHorizontal;                                  // The distance form the center of the player to the end of his model vertically
 
+    [Header("Stuff required for animations")]
+    [SerializeField] Animator animate;
+    [SerializeField] float timeFactor;
+    Quaternion currentRotation;
+    Quaternion endRotation;
+    bool turning;
+    bool startGroundCheck;
 
     // Boolians
     bool grounded = true;                                       // To check if player is in contact with the floor
@@ -40,7 +47,6 @@ public class PlayerController : MonoBehaviour
         InputManager.HahaVeryFunny += KyleHasDirtyUnderwear;
         InputManager.LeftAndRight += MoveForawrdOrBack;
         InputManager.Jumping += Jump;
-        InputManager.Ducking += Duck;
         InputManager.Interacting += Interact;
         InputManager.Attacking += Attack;
         InputManager.Dash += Dashing;
@@ -54,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         // Making player velocity 0 to stop instantly as soon as button is released
         if (Input.GetAxisRaw("Horizontal") == 0 && notInAir)
         {
@@ -70,6 +77,25 @@ public class PlayerController : MonoBehaviour
             recentlyDashed = false;
         }
 
+        //For animations
+        animate.SetFloat("Speed", Mathf.Abs(Input.GetAxis("Horizontal")));
+        if(startGroundCheck)
+            RayCastingFunction();
+        if(grounded && startGroundCheck)
+        {
+            animate.SetBool("Jump", false);
+            startGroundCheck = false;
+        }
+        if(onLeftWall)
+        {
+            animate.SetBool("ToWall", true);
+            StartCoroutine(WaitForAnimation("ToWall"));
+        }
+        else if (onRightWall)
+        {
+            animate.SetBool("ToWall", true);
+            StartCoroutine(WaitForAnimation("ToWall"));
+        }
     }
 
 
@@ -95,6 +121,21 @@ public class PlayerController : MonoBehaviour
             else
                 playerRb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * movementSpeed, playerRb.velocity.y);
         }
+        //Turning 
+        if(lookingRight && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            turning = true;
+            currentRotation = transform.rotation ;
+            endRotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+            StartCoroutine(TurningPlayer(currentRotation, endRotation));
+        }
+        else if (lookingLeft && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            turning = true;
+            currentRotation = transform.rotation;
+            endRotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+            StartCoroutine(TurningPlayer(currentRotation, endRotation));
+        }
         // Setting which side the player is facing
         if(Input.GetAxisRaw("Horizontal") < 0)
         {
@@ -106,6 +147,7 @@ public class PlayerController : MonoBehaviour
             lookingLeft = false;
             lookingRight = true;
         }
+        print(Input.GetAxisRaw("Horizontal"));
     }
 
     // Function to make the player jump, double jump and wall jump
@@ -114,6 +156,8 @@ public class PlayerController : MonoBehaviour
         RayCastingFunction();
         if (grounded)                                          // Make player jump if on the ground
         {
+            animate.SetBool("Jump", true);
+            StartCoroutine(GroundCheck());
             playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
             jumpNumber = 1;
             notInAir = false;
@@ -123,11 +167,23 @@ public class PlayerController : MonoBehaviour
             if(onRightWall)
             {
                 playerRb.velocity = new Vector2(0, 0);
+                turning = true;
+                currentRotation = transform.rotation;
+                endRotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+                StartCoroutine(TurningPlayer(currentRotation, endRotation));
+                lookingLeft = true;
+                lookingRight = false;
                 playerRb.AddForce(new Vector2(-jumpForceForward, jumpForce), ForceMode2D.Impulse);
             }
             else if (onLeftWall)
             {
                 playerRb.velocity = new Vector2(0, 0);
+                turning = true;
+                currentRotation = transform.rotation;
+                endRotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+                StartCoroutine(TurningPlayer(currentRotation, endRotation));
+                lookingRight = true;
+                lookingLeft = false;
                 playerRb.AddForce(new Vector2(jumpForceForward, jumpForce), ForceMode2D.Impulse);
             }
             notInAir = false;
@@ -147,6 +203,7 @@ public class PlayerController : MonoBehaviour
         {
             Physics2D.IgnoreLayerCollision(11, 12, ignore: true);
             isDashing = true;
+            animate.SetBool("Dash", true);
             StartCoroutine(StopDash(dashDuration));
             // Based on direction the player is looking at dash in that direction even if the player gives no direction input
             if (lookingLeft)
@@ -160,11 +217,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // The function which make the player duck
-    void Duck()
-    {
-        print("<color=red> DUCKING NOW </color>");
-    }
 
     // The function that makes the player interact with the object in front of him
     void Interact()
@@ -226,7 +278,36 @@ public class PlayerController : MonoBehaviour
         playerRb.velocity = new Vector2(0, 0);                              // Stoping the player at the end of the dash
         Physics2D.IgnoreLayerCollision(11, 12, ignore: false);              // Turing the collisons between enemy and player back ON
         isDashing = false;
+        animate.SetBool("Dash", false);
         recentlyDashed = true;
         dashGap = timeBeforeNextDash;                                       // Setting the timer  counting down to the next dash
+    }
+
+    IEnumerator TurningPlayer(Quaternion start, Quaternion end)
+    {
+        yield return new WaitForSeconds(0.1f);
+        float tick = 0; 
+        while(turning)
+        {
+            if (tick >= 1)
+            {
+                turning = false;
+                break;
+            }
+            tick += Time.deltaTime * timeFactor;
+            transform.rotation = Quaternion.Lerp(start, end, tick);
+        }
+    }
+
+    IEnumerator GroundCheck()
+    {
+        yield return new WaitForSeconds(0.5f);
+        startGroundCheck = true;
+    }
+
+    IEnumerator WaitForAnimation(string boolName)
+    {
+        yield return new WaitForSecondsRealtime(1);
+        animate.SetBool(boolName, false);
     }
 }

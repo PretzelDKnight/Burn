@@ -12,7 +12,6 @@ public class InputManager : MonoBehaviour
     public delegate void PlayerControls();
     public static event PlayerControls LeftAndRight;
     public static event PlayerControls Jumping;
-    public static event PlayerControls Ducking;
     public static event PlayerControls Interacting;
     public static event PlayerControls Attacking;
     public static event PlayerControls Dash;
@@ -41,11 +40,6 @@ public class InputManager : MonoBehaviour
         {
             if (Jumping != null)
                 Jumping();
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (Ducking != null)
-                Ducking();
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
