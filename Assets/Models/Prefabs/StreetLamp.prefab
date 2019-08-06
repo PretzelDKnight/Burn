@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 7084433275232817987}
   - component: {fileID: 2278152106367881121}
   m_Layer: 0
-  m_Name: Spot Light
+  m_Name: StreetLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,9 +530,9 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 1, g: 0, b: 0.50872326, a: 1}
-  m_Intensity: 9.38
-  m_Range: 11.449146
-  m_SpotAngle: 102.544655
+  m_Intensity: 15
+  m_Range: 6.5
+  m_SpotAngle: 87.319016
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -569,7 +569,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1

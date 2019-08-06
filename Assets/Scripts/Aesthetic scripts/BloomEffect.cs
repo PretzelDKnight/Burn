@@ -58,15 +58,17 @@ public class BloomEffect : MonoBehaviour
         {
             width /= 2;
             height /= 2;
-            if (height < 2)
+            if (height < 2 || width<2)
             {
                 break;
             }
-            currentDestination = textures[i] = RenderTexture.GetTemporary( 0 + width, height, 0, format);
+            currentDestination = textures[i] = RenderTexture.GetTemporary( width, height, 0, format);
             Graphics.Blit(currentSource, currentDestination, bloom, BoxDownPass);
             currentSource = currentDestination;
         }
-
+        Debug.Log(height);
+       //Graphics.Blit(currentSource, destination, bloom, 4);
+        
         for (i -= 2; i >= 0; i--) // Upsampling equivalent number of times
         {
             currentDestination = textures[i];
@@ -75,17 +77,18 @@ public class BloomEffect : MonoBehaviour
             RenderTexture.ReleaseTemporary(currentSource);
             currentSource = currentDestination;
         }
+        Graphics.Blit(currentSource, destination, bloom, 4);
 
-        // final shader pass for brightening colors
+        //final shader pass for brightening colors
         if (debug)
-        {
-            Graphics.Blit(currentSource, destination, bloom, DebugBloomPass);
-        }
-        else
-        {
-            bloom.SetTexture("_SourceTex", currentSource);
-            Graphics.Blit(source, destination, bloom, ApplyBloomPass);
-        }
+            {
+                Graphics.Blit(currentSource, destination, bloom, DebugBloomPass);
+            }
+            else
+            {
+                bloom.SetTexture("_SourceTex", currentSource);
+                Graphics.Blit(source, destination, bloom, ApplyBloomPass);
+            }
         RenderTexture.ReleaseTemporary(currentSource);
     }
 }
