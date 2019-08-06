@@ -131,7 +131,7 @@
 
 				fixed4 FragmentProgram(Interpolators i) : SV_Target 
 				{
-					return fixed4(_Intensity * SampleBox(i.uv, 0.5), 1);
+					return tex2D(_MainTex, i.uv).rgba;
 				}
 			ENDCG
 		}
