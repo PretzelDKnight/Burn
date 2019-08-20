@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class InputManager : MonoBehaviour
 {
     float i;
+    KeyBindings keys;
     public delegate void PrintMaster9000(float b);
     public static event PrintMaster9000 HahaVeryFunny;
     public delegate void PlayerControls();
@@ -20,6 +21,7 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         i = 0;
+        keys = FindObjectOfType<KeyBindings>();
     }
 
     // Update is called once per frame
@@ -36,22 +38,22 @@ public class InputManager : MonoBehaviour
             if (LeftAndRight != null)
                 LeftAndRight();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(keys.inputs["Jump"]))
         {
             if (Jumping != null)
                 Jumping();
         }
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(keys.inputs["Interact"]))
         {
             if (Interacting != null)
                 Interacting();
         }
-        if(Input.GetKeyDown(KeyCode.X))
+        if(Input.GetKeyDown(keys.inputs["Attack"]))
         {
             if (Attacking != null)
                 Attacking();
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(keys.inputs["Dash"]))
         {
             if (Dash != null)
                 Dash();

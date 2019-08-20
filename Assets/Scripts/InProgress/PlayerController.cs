@@ -147,7 +147,6 @@ public class PlayerController : MonoBehaviour
             lookingLeft = false;
             lookingRight = true;
         }
-        print(Input.GetAxisRaw("Horizontal"));
     }
 
     // Function to make the player jump, double jump and wall jump
@@ -158,7 +157,7 @@ public class PlayerController : MonoBehaviour
         {
             animate.SetBool("Jump", true);
             StartCoroutine(GroundCheck());
-            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
+            playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
             jumpNumber = 1;
             notInAir = false;
         }
@@ -191,7 +190,7 @@ public class PlayerController : MonoBehaviour
         else if(jumpNumber > 0)                                // Check if player has more jumps left if so then perform nother jump form the point he is at
         {
             playerRb.velocity = new Vector2(playerRb.velocity.x, 0);
-            playerRb.velocity = new Vector2(playerRb.velocity.x, Input.GetAxisRaw("Jump") * jumpForce);
+            playerRb.velocity = new Vector2(playerRb.velocity.x, jumpForce);
             jumpNumber--;
         }
     }
