@@ -60,9 +60,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         // Making player velocity 0 to stop instantly as soon as button is released
-        if (Input.GetAxisRaw("Horizontal") == 0 && notInAir)
+        if (Input.GetAxisRaw("Horizontal") == 0 && notInAir && !isDashing)
         {
             playerRb.velocity = new Vector2(0, playerRb.velocity.y);
         }
