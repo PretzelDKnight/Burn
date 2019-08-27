@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - WallRight
   - WallLeft
+  - CamClip
   layers:
   - Default
   - TransparentFX

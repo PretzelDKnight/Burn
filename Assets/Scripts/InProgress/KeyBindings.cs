@@ -28,6 +28,8 @@ public class KeyBindings : MonoBehaviour
         Dash.text = inputs["Dash"].ToString();
         Forward.text = inputs["Forward"].ToString();
         Backwards.text = inputs["Backward"].ToString();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnGUI()
@@ -39,7 +41,7 @@ public class KeyBindings : MonoBehaviour
             if(e.isKey)
             {
                 inputs[currentKey.name] = e.keyCode;
-                currentKey.GetComponentInChildren<Text>().text = e.keyCode.ToString();
+                currentKey.GetComponent<Text>().text = e.keyCode.ToString();
                 ChangeInstructionPannel.SetActive(false);
                 currentKey = null;
             }
@@ -60,6 +62,7 @@ public class KeyBindings : MonoBehaviour
         //looping through the current set keybindings and aving playerPrefs
         foreach(var key in inputs)
         {
+           print("et");
             PlayerPrefs.SetString(key.Key, key.Value.ToString());
         }
         PlayerPrefs.Save();

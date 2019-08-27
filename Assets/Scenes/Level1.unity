@@ -2798,6 +2798,7 @@ Transform:
   - {fileID: 2094745094}
   - {fileID: 1698023901}
   - {fileID: 1008946734}
+  - {fileID: 651987942}
   m_Father: {fileID: 1730875168}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7575,9 +7576,9 @@ GameObject:
   - component: {fileID: 340402919}
   - component: {fileID: 340402918}
   - component: {fileID: 340402917}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (12)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13394,6 +13395,124 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650637064}
   m_Mesh: {fileID: 2222681851162108494, guid: 3ed8eaadc3267b245a54d6b5bb68549f, type: 3}
+--- !u!1 &651987941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651987942}
+  - component: {fileID: 651987946}
+  - component: {fileID: 651987945}
+  - component: {fileID: 651987944}
+  - component: {fileID: 651987943}
+  m_Layer: 0
+  m_Name: collider (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &651987942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651987941}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 16.246, y: 4.522, z: -3.4474335}
+  m_LocalScale: {x: 5.1340704, y: 0.041365016, z: 0.43455982}
+  m_Children: []
+  m_Father: {fileID: 125793777}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &651987943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651987941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e87010d322ec74dbf3637dd7953560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1880072103}
+--- !u!61 &651987944
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651987941}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.90835094}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 6.4934196}
+  m_EdgeRadius: 0
+--- !u!23 &651987945
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651987941}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &651987946
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651987941}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &652575215
 GameObject:
   m_ObjectHideFlags: 0
@@ -15858,9 +15977,9 @@ GameObject:
   - component: {fileID: 793332506}
   - component: {fileID: 793332505}
   - component: {fileID: 793332504}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (9)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19098,7 +19217,7 @@ Transform:
   - {fileID: 1723662200}
   - {fileID: 1607086496}
   m_Father: {fileID: 1730875168}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003978524
 GameObject:
@@ -19442,9 +19561,9 @@ GameObject:
   - component: {fileID: 1008946733}
   - component: {fileID: 1008946732}
   - component: {fileID: 1008946731}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (17)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19632,9 +19751,9 @@ GameObject:
   - component: {fileID: 1014731786}
   - component: {fileID: 1014731785}
   - component: {fileID: 1014731784}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (10)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22343,6 +22462,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 850931a221119e4429119db6a814509d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5133913965574556032, guid: 850931a221119e4429119db6a814509d,
         type: 3}
       propertyPath: m_Layer
@@ -23318,9 +23442,9 @@ GameObject:
   - component: {fileID: 1243108816}
   - component: {fileID: 1243108815}
   - component: {fileID: 1243108814}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (13)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27953,9 +28077,9 @@ GameObject:
   - component: {fileID: 1551918180}
   - component: {fileID: 1551918179}
   - component: {fileID: 1551918178}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (14)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29280,10 +29404,9 @@ GameObject:
   - component: {fileID: 1616597360}
   - component: {fileID: 1616597359}
   - component: {fileID: 1616597358}
-  - component: {fileID: 1616597361}
   m_Layer: 11
   m_Name: FuckerMain
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29376,25 +29499,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1616597361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616597356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49d8c7490cb18c9438177990fce4f554, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Jump: {fileID: 0}
-  Attack: {fileID: 0}
-  Interact: {fileID: 0}
-  Dash: {fileID: 0}
-  Forward: {fileID: 0}
-  Backwards: {fileID: 0}
-  ChangeInstructionPannel: {fileID: 0}
 --- !u!1 &1619710323
 GameObject:
   m_ObjectHideFlags: 0
@@ -30750,9 +30854,9 @@ GameObject:
   - component: {fileID: 1698023900}
   - component: {fileID: 1698023899}
   - component: {fileID: 1698023898}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (16)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31240,8 +31344,8 @@ Transform:
   - {fileID: 1616597357}
   - {fileID: 1880072098}
   - {fileID: 2117952873}
-  - {fileID: 314026869}
   - {fileID: 1001206435}
+  - {fileID: 314026869}
   - {fileID: 1972958333}
   - {fileID: 1006054666}
   - {fileID: 1517477947}
@@ -34689,6 +34793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1616597356}
+  cameraYlimit: 84
   camOffSet: {x: 0.72, y: 0.42, z: -1.44}
 --- !u!1 &1888515098
 GameObject:
@@ -38870,9 +38975,9 @@ GameObject:
   - component: {fileID: 2094745093}
   - component: {fileID: 2094745092}
   - component: {fileID: 2094745091}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: collider (15)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
