@@ -7,15 +7,16 @@ public class CamClipTrigger : MonoBehaviour
 
     //to clip camera
     [SerializeField] CamFollowPlayerR cam;
+    [SerializeField] float limitYvalue;
   
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-            print(other);
-        if (other.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            cam.cameraYlimit = 84;
+            cam.cameraYlimit = limitYvalue;
         }
     }
+
 }
