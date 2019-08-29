@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 enum MenuState { Main, NewGame, Continue, Options }
 
@@ -102,5 +103,10 @@ public class MenuManager : MonoBehaviour
     public void Change()
     {
         moveSFX.Play();
+    }
+    
+    public void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

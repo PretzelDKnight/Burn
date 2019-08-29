@@ -66,8 +66,7 @@ public class BloomEffect : MonoBehaviour
             Graphics.Blit(currentSource, currentDestination, bloom, BoxDownPass);
             currentSource = currentDestination;
         }
-        Debug.Log(height);
-       //Graphics.Blit(currentSource, destination, bloom, 4);
+
         
         for (i -= 2; i >= 0; i--) // Upsampling equivalent number of times
         {
