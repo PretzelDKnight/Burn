@@ -12,6 +12,10 @@ public class EnemyAI : MonoBehaviour
     public GameObject Enemy1;
     public int EnemyHealth = 10;
 
+    [Header("Stuff required for animations")]
+    [SerializeField] Animator animate;
+    [SerializeField] float timeFactor;
+
     enum EnemyStates
     {
         Patrolling,
@@ -65,6 +69,7 @@ public class EnemyAI : MonoBehaviour
         if (Vector3.Distance(transform.position, objectToChase.position) > 10f)
         {
             currentState = EnemyStates.Patrolling;
+            animate.SetFloat("StartOrStopMove", 1);
         }
         else
         {
